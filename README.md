@@ -1,5 +1,4 @@
-# サイト名
-favrecipe
+# favrecipe
 
 ## サイト概要
 ### サイトテーマ
