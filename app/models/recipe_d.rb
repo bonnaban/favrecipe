@@ -1,10 +1,13 @@
 class RecipeD < ApplicationRecord
+  has_one_attached :image
   belongs_to :user
-  has_many :comment, dependent: :destroy
-  has_many :material, dependent: :destroy
-  has_many :procedure, dependent: :destroy
-  has_many :evaluation, dependent: :destroy
-  
+  has_many :comments, dependent: :destroy
+  has_many :materials, dependent: :destroy
+  has_many :procedures, dependent: :destroy
+  has_many :evaluations, dependent: :destroy
+
   validates :title, presence: true
   validates :explanation, presence: true
+
+  accepts_nested_attributes_for :materials, :procedures, allow_destroy: true
 end

@@ -65,3 +65,6 @@ gem 'net-smtp'
 gem "enum_help"
 # エラーメッセージの日本語化
 gem 'rails-i18n'
+# フォームの追加・削除機能用
+gem 'cocoon'
+gem "jquery-rails"
