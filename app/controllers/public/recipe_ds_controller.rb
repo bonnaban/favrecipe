@@ -11,6 +11,7 @@ class Public::RecipeDsController < ApplicationController
 
   def create
     @recipe_d = RecipeD.new(recipe_d_params)
+    @recipe_d.user_id = current_user.id
     if @recipe_d.save
       redirect_to top_path
     else
@@ -32,7 +33,7 @@ class Public::RecipeDsController < ApplicationController
 
 private
   def recipe_d_params
-    params.require(:recipe_d).permit(:title, :explanation, :time, :people, :image,
+    params.require(:recipe_d).permit(:user_id, :title, :explanation, :time, :people, :image,
                                     #cocoonで実装する動的なフォームで表示するテーブルの許可
                                     materials_attributes:[:material_name, :quantity, :_destroy],
                                     procedures_attributes:[:procedure_explanation, :image, :_destroy])
