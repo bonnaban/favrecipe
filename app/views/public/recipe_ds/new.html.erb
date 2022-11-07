@@ -9,9 +9,10 @@
         <%= form_with model: @recipe_d, url: recipe_ds_path do |f| %>
           <div class = "row">
             <div class = "col-sm-6">
-              <!--javascriptで画像選択後、プレビュー表示 ここから-->
               <div>
+                <!--javascriptで画像選択ボタンを表示-->
                 <input type = "file" accept = 'image/*' onchange = "recipeImage(this);">
+                <!--javascriptで選択した画像を表示 defaultでno_imageを設定-->
                 <img class = "preview" src = "<%= asset_path('no_image.jpg') %>" style = "max-width:500px;">
               </div>
               <!--ここまで-->
@@ -77,6 +78,7 @@
             </div>
 
             <div class = "col-sm-12">
+              <!--境界線-->
               <div class = "boundary"></div>
             </div>
 
@@ -112,10 +114,13 @@
   </div>
 </main>
 
+<!--料理画像の貼付場所の指定-->
 <script>
+  // inputタグとの紐付用id
   function recipeImage(obj)
   {
     var fileReader = new FileReader();
+    // inputタグの兄弟要素のimgタグを指定
     var imgTag = $(obj).siblings('.preview')[0];
     fileReader.onload = (function() {
       //document.getElementById('test').src = fileReader.result;
@@ -125,10 +130,13 @@
   }
 </script>
 
+<!--手順画像の貼付場所の指定-->
 <script>
+  // inputタグとの紐付用id
   function previewImage(obj)
   {
     var fileReader = new FileReader();
+    // inputタグの親、親、親、兄弟、子要素のimgタグを指定
     var imgTag = $(obj).parent('.file').parent('.file_field').parent('.file_fields').siblings('.preview_field').children('.preview')[0];
     fileReader.onload = (function() {
       //document.getElementById('test').src = fileReader.result;

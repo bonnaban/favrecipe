@@ -3,15 +3,15 @@
     <div class="col-sm-10 file_fields">
       <div class = "row file_field">
         <%= f.text_field :procedure_explanation, class: "form-control", placeholder: "手順" %>
-        <!--javascriptで画像選択後、プレビュー表示 ここから-->
         <div class = "file">
+          <!--javascriptで画像選択ボタンを表示-->
           <input type="file" accept='image/*' onchange="previewImage(this);">
         </div>
-        <!--ここまで-->
       </div>
     </div>
     <div class = "col-sm-1 preview_field">
-      <img class="preview" src="<%= asset_path('no_image.jpg') %>" style="max-width:100px;">
+      <!--javascriptで選択した画像を表示 defaultでno_imageを設定-->
+      <img class = "preview" src = "<%= asset_path('no_image.jpg') %>" style = "max-width:100px;">
     </div>
     <div class="col-sm-1">
       <%= link_to_remove_association "削除", f, class: "btn btn-secondary btn-block" %>
