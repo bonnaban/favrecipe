@@ -4,8 +4,8 @@
       <div class = "row file_field">
         <%= f.text_field :procedure_explanation, class: "form-control", placeholder: "手順" %>
         <div class = "file">
-          <!--javascriptで画像選択ボタンを表示-->
-          <input type="file" accept='image/*' onchange="previewImage(this);">
+          <!--javascriptで定義した関数を元に画像選択ボタン”ココ”に表示-->
+          <%= f.file_field :image,  accept: 'image/*', onchange: "previewImage(this);" %>
         </div>
       </div>
     </div>

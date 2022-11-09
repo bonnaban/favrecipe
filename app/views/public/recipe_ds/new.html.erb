@@ -10,8 +10,8 @@
           <div class = "row">
             <div class = "col-sm-6">
               <div>
-                <!--javascriptで画像選択ボタンを表示-->
-                <input type = "file" accept = 'image/*' onchange = "recipeImage(this);">
+                <!--javascriptで定義した関数を元に画像選択ボタン”ココ”に表示-->
+                <%= f.file_field :image,  accept: 'image/*', onchange: "recipeImage(this);" %>
                 <!--javascriptで選択した画像を表示 defaultでno_imageを設定-->
                 <img class = "preview" src = "<%= asset_path('no_image.jpg') %>" style = "max-width:500px;">
               </div>

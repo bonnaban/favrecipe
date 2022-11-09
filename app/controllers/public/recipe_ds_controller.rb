@@ -13,19 +13,27 @@ class Public::RecipeDsController < ApplicationController
     @recipe_d = RecipeD.new(recipe_d_params)
     @recipe_d.user_id = current_user.id
     if @recipe_d.save
-      redirect_to top_path
+      redirect_to recipe_d_path(@recipe_d)
     else
       render :new
     end
   end
 
   def show
+    @recipe_d = RecipeD.find(params[:id])
   end
 
   def edit
+    @recipe_d = RecipeD.find(params[:id])
   end
 
   def update
+    @recipe_d = RecipeD.find(params[:id])
+    if @recipe_d.update(recipe_d_params)
+      redirect_to recipe_d_path(@recipe_d)
+    else
+      render :edit
+    end
   end
 
   def destroy
