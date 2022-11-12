@@ -1,5 +1,6 @@
 class Public::RecipeDsController < ApplicationController
   def index
+    @recipe_d = RecipeD.page(params[:page]).per(8)
   end
 
   def new
@@ -37,6 +38,9 @@ class Public::RecipeDsController < ApplicationController
   end
 
   def destroy
+    @recipe_d = RecipeD.find(params[:id])
+    @recipe_d.destroy
+    redirect_to recipe_ds_path
   end
 
 private

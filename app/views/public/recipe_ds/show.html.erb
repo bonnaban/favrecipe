@@ -2,9 +2,10 @@
   <div class = "container">
     <div class = "row">
       <div class = "col-sm-11 offset-sm-1">
-        <h3><i class="fas fa-utensils"></i><%= @recipe_d.title %></h3>
+        <h3><i class="fas fa-cookie-bite"></i><%= @recipe_d.title %></h3>
       </div>
       <div class = "col-sm-12">
+        <!--料理画像を中央寄せし、縦横最大1000pxで表示-->
         <%= image_tag @recipe_d.image.representation(resize_to_limit: [1000, 1000]), class: "mx-auto d-block" %>
       </div>
       <div class = "col-sm-3">
@@ -19,18 +20,54 @@
       <div class = "col-sm-3">
         <%= @recipe_d.time %>分
       </div>
-      <div class = "col-sm-11 offset-sm-1">
+      <div class = "col-sm-11 offset-sm-1 mt-3">
         <h3><i class="fas fa-book-open"></i>料理説明</h3>
       </div>
-      <div class = "col-sm-12">
+      <div class = "col-sm-11 offset-sm-1">
         <%= @recipe_d.explanation %>
       </div>
-      <div class = "col-sm-11 offset-sm-1">
+      <div class = "col-sm-11 offset-sm-1 mt-3">
         <h3><i class="fas fa-user"></i>材料<%= @recipe_d.people %>人分</h3>
       </div>
-      <span class = "col-sm-6">
-        ##ここから
+      <!--アソシエーションで紐づいているmaterialsのカラムをeach文で表示-->
+      <% @recipe_d.materials.each do |material|%>
+      <span class = "col-sm-3 offset-sm-2">
+        <%= material.material_name %>
       </span>
+      <span class = "col-sm-3 text-right">
+        <%= material.quantity %>
+      </span>
+      <% end %>
+      <div class = "col-sm-11 offset-sm-1 mt-3">
+        <h3><i class="fas fa-utensils"></i>作り方</h3>
+      </div>
+      <!--アソシエーションで紐づいているproceduresのカラムをeach文で表示-->
+      <% @recipe_d.procedures.each do |procedure|%>
+      <span class = "col-sm-3 offset-sm-2">
+        <%= procedure.procedure_explanation %>
+      </span>
+      <span class = "col-sm-3 text-right">
+        <%= image_tag procedure.image.representation(resize_to_limit: [100, 100]) %>
+      </span>
+      <% end %>
+      <div class = "col-sm-11 offset-sm-1 mt-3">
+        <h3><i class="far fa-comment"></i></i>コメント</h3>
+      </div>
+      <div class = "col-sm-11 offset-sm-1 mt-3">
+        ##
+      </div>
+      <div class = "col-sm-11 offset-sm-1 mt-3">
+        <h3><i class="fas fa-comment-medical"></i></i>コメント追加</h3>
+      </div>
+      <div class = "col-sm-11 offset-sm-1 mt-3">
+        ##
+      </div>
+      <% if current_user.id == @recipe_d.user_id %>
+      <div class = "col-sm-12 text-center">
+        <%= link_to "編集する", edit_recipe_d_path(@recipe_d), class: 'btn btn-sm btn-success' %>
+        <%= link_to "削除する", recipe_d_path(@recipe_d), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "本当に削除しますか？" } %>
+      </div>
+      <% end %>
     </div>
   </div>
 </main>

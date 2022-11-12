@@ -10,8 +10,8 @@
       </div>
     </div>
     <div class = "col-sm-1 preview_field">
-      <!--javascriptで選択した画像を表示 defaultでno_imageを設定-->
-      <img class = "preview" src = "<%= asset_path('no_image.jpg') %>" style = "max-width:100px;">
+      <!--javascriptで選択した画像を表示 画像が無ければno_imageを表示-->
+      <%= image_tag asset_path('no_image.jpg'), class: "preview", style: "max-width:100px;" %>
     </div>
     <div class="col-sm-1">
       <%= link_to_remove_association "削除", f, class: "btn btn-secondary btn-block" %>

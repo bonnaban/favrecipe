@@ -1,0 +1,23 @@
+<main>
+  <div class = "container">
+    <div class = "row">
+      <div class = "col-sm-11 offset-sm-1">
+        <h3><i class="fas fa-indent"></i></i>レシピ一覧</h3>
+      </div>
+      <% @recipe_d.each do |recipe| %>
+        <div class = "col-sm-3">
+          <%= link_to recipe_d_path(recipe) do %>
+            <div class = "card">
+              <%#= image_tag recipe.image %>
+              <div class = "card-body"><%= recipe.title %></div>
+              <div class = "card-text"><%= recipe.time %></div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <div class = "col-sm-5 offset-sm-5">
+        <%= paginate @recipe_d %>
+      </div>
+    </div>
+  </div>
+</main>
