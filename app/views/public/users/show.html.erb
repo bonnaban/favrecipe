@@ -1,0 +1,26 @@
+<main>
+  <div class = "container">
+    <div class = "row">
+      <%= render 'partial_template/profire' %>
+      <div class = "col-sm-5">
+        <%= image_tag asset_path('no_image.jpg'), class: "preview", style: "max-width:500px;" %>
+      </div>
+      <div class = "col-sm-5">
+        <div class = "row">
+          <div class = "col-sm-12">
+            ニックネーム
+          </div>
+          <div class = "col-sm-12">
+            <%= @user.nickname %>
+          </div>
+          <div class = "col-sm-12">
+            メールアドレス
+          </div>
+          <div class = "col-sm-12">
+            <%= @user.email %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
