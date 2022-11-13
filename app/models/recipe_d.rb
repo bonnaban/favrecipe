@@ -8,6 +8,8 @@ class RecipeD < ApplicationRecord
 
   validates :title, presence: true
   validates :explanation, presence: true
+  validates :time, presence: true
+  validates :people, presence: true
 
   accepts_nested_attributes_for :materials, :procedures, allow_destroy: true
 end

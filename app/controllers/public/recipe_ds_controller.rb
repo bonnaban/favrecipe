@@ -47,7 +47,7 @@ private
   def recipe_d_params
     params.require(:recipe_d).permit(:user_id, :title, :explanation, :time, :people, :image,
                                     #cocoonで実装する動的なフォームで表示するテーブルの許可
-                                    materials_attributes:[:material_name, :quantity, :_destroy],
-                                    procedures_attributes:[:procedure_explanation, :image, :_destroy])
+                                    materials_attributes:[:id, :material_name, :quantity, :_destroy],
+                                    procedures_attributes:[:id, :procedure_explanation, :image, :_destroy])
   end
 end

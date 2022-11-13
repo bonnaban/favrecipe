@@ -11,7 +11,11 @@
     </div>
     <div class = "col-sm-1 preview_field">
       <!--javascriptで選択した画像を表示 画像が無ければno_imageを表示-->
-      <%= image_tag asset_path('no_image.jpg'), class: "preview", style: "max-width:100px;" %>
+      <% if f.object.image.attached? %>
+        <%= image_tag  f.object.image.representation(resize_to_limit: [100, 100]), class: "preview" %>
+      <% else %>
+        <%= image_tag asset_path('no_image.jpg'), class: "preview", style: "max-width:100px;" %>
+      <% end %>
     </div>
     <div class="col-sm-1">
       <%= link_to_remove_association "削除", f, class: "btn btn-secondary btn-block" %>

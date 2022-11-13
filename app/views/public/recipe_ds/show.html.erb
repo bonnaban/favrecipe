@@ -5,8 +5,12 @@
         <h3><i class="fas fa-cookie-bite"></i><%= @recipe_d.title %></h3>
       </div>
       <div class = "col-sm-12">
-        <!--料理画像を中央寄せし、縦横最大1000pxで表示-->
-        <%= image_tag @recipe_d.image.representation(resize_to_limit: [1000, 1000]), class: "mx-auto d-block" %>
+        <!--料理画像を中央寄せし、縦横最大1000pxで表示 画像が無ければno_imageを表示-->
+        <% if @recipe_d.image.attached? %>
+          <%= image_tag @recipe_d.image.representation(resize_to_limit: [1000, 1000]), class: "mx-auto d-block" %>
+        <% else %>
+          <%= image_tag asset_path('no_image.jpg'), class: "mx-auto d-block", style: "max-width:500px;" %>
+        <% end %>
       </div>
       <div class = "col-sm-3">
         投稿日
@@ -47,7 +51,11 @@
         <%= procedure.procedure_explanation %>
       </span>
       <span class = "col-sm-3 text-right">
-        <%= image_tag procedure.image.representation(resize_to_limit: [100, 100]) %>
+        <% if procedure.image.attached? %>
+          <%= image_tag procedure.image.representation(resize_to_limit: [100, 100]) %>
+        <% else %>
+            <%= image_tag asset_path('no_image.jpg'), class: "preview", style: "max-width:100px;" %>
+        <% end %>
       </span>
       <% end %>
       <div class = "col-sm-11 offset-sm-1 mt-3">
@@ -62,7 +70,7 @@
       <div class = "col-sm-11 offset-sm-1 mt-3">
         ##
       </div>
-      <% if current_user.id == @recipe_d.user_id %>
+      <% if @recipe_d.user_id == current_user.id %>
       <div class = "col-sm-12 text-center">
         <%= link_to "編集する", edit_recipe_d_path(@recipe_d), class: 'btn btn-sm btn-success' %>
         <%= link_to "削除する", recipe_d_path(@recipe_d), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "本当に削除しますか？" } %>
