@@ -27,10 +27,12 @@ scope module: :public do
   get '/users/confirmation' => 'users#confirmation'
   patch '/users/withdrawal' => 'users#withdrawal'
   #recipe_d
-  resources :recipe_ds
+  resources :recipe_ds do
+    resources :comments, only: [:create, :destroy]
+    resources :likes, only: [:create, :destroy]
+  end
   resources :evaluations, only: [:create, :update, :destroy]
-  resources :likes, only: [:create, :destroy]
-  resources :comments, only: [:create, :destroy]
+  #resources :comments, only: [:create, :destroy]
   resources :materials, only: [:create, :update, :destroy]
   resources :procedures, only: [:create, :update, :destroy]
 end

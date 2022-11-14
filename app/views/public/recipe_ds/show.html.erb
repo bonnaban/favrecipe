@@ -61,15 +61,36 @@
       <div class = "col-sm-11 offset-sm-1 mt-3">
         <h3><i class="far fa-comment"></i></i>コメント</h3>
       </div>
-      <div class = "col-sm-11 offset-sm-1 mt-3">
-        ##
-      </div>
-      <div class = "col-sm-11 offset-sm-1 mt-3">
-        <h3><i class="fas fa-comment-medical"></i></i>コメント追加</h3>
-      </div>
-      <div class = "col-sm-11 offset-sm-1 mt-3">
-        ##
-      </div>
+      <!--コメントを表示　削除ボタンはレシピの投稿者とコメントの投稿者のみ表示-->
+      <% @recipe_d.comments.each do |comment| %>
+        <div class = "col-sm-11 offset-sm-1 mt-3">
+          <%= comment.comment %>
+          <% if user_signed_in? %>
+            <% if comment.user == current_user %>
+              <%= link_to "削除", recipe_d_comment_path(comment.recipe_d, comment), class: 'btn btn-sm btn-danger', method: :delete %>
+            <% elsif @recipe_d.user == current_user %>
+              <%= link_to "削除", recipe_d_comment_path(comment), class: 'btn btn-sm btn-danger', method: :delete %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <!--ゲストログイン時はコメント投稿機能を非表示-->
+        <% if current_user.email == 'guest@example.com' %>
+        <% else %>
+          <div class = "col-sm-11 offset-sm-1 mt-3">
+            <h3><i class="fas fa-comment-medical"></i></i>コメント投稿</h3>
+          </div>
+          <div class = "col-sm-11 offset-sm-1 mt-3">
+            <%= form_with model: [@recipe_d, @comment] do |f| %>
+              <%= f.text_area :comment, class:"form-control", :placeholder => "レシピへの感想はこちらから！！" %>
+              <%= f.submit "コメントする", class: "btn btn-sm btn-success" %>
+            <% end %>
+          </div>
+        <% end %>
+      <% else %>
+      <% end %>
       <% if @recipe_d.user_id == current_user.id %>
       <div class = "col-sm-12 text-center">
         <%= link_to "編集する", edit_recipe_d_path(@recipe_d), class: 'btn btn-sm btn-success' %>

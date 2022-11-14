@@ -22,6 +22,8 @@ class Public::RecipeDsController < ApplicationController
 
   def show
     @recipe_d = RecipeD.find(params[:id])
+    @comment = Comment.new
+    #@comments = Comment.where(recipe_d_id: params[:id])
   end
 
   def edit

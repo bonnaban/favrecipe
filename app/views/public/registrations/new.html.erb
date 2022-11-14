@@ -1,4 +1,6 @@
 <main>
+  <!--退会したuserがログインしようとした際にメッセージを表示-->
+  <p><%= notice %></p>
   <%= form_with model: @user, url: user_registration_path do |f| %>
     <%= render "public/shared/error_messages", resource: resource %>
     <div class = "container">
