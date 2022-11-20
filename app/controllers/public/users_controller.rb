@@ -7,10 +7,14 @@ class Public::UsersController < ApplicationController
   end
 
   def like
+    # user_idがparameterに送られたら、Userに基づいたrecipeを表示。送られなければ全て表示
+    @recipe_d = params[:tag_id].present? ? Tag.find(params[:tag_id]).recipe_ds : RecipeD.all
+    @recipe_ds = @recipe_d.page(params[:page]).per(8)
   end
 
   def post
-    @recipe_d = params[:tag_id].present? ? Tag.find(params[:tag_id]).recipe_ds : RecipeD.all
+    # user_idがparameterに送られたら、Userに基づいたrecipeを表示。送られなければ全て表示
+    @recipe_d = params[:user_id].present? ? User.find(params[:user_id]).recipe_ds : RecipeD.all
     @recipe_ds = @recipe_d.page(params[:page]).per(8)
   end
 
