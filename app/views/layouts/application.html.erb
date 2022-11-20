@@ -12,6 +12,7 @@
 
   <body class = "d-flex flex-column vh-100">
     <header class = "shadow-sm">
+      <!--ナビゲーションバーの設定-->
       <nav class = "navbar navbar-expand-lg navbar-light">
         <div class = "container">
           <% if admin_signed_in? %>
@@ -21,13 +22,22 @@
           <% else %>
             <%= link_to "favrecipe", top_path, class: "navbar-brand" %>
           <% end %>
+          <div class = "col-sm-4">
+            <!--検索フォームの記述-->
+            <%= form_tag recipe_ds_path, method: :get, class: 'boards__searchForm' do %>
+              <%= select_tag :tag_id,
+              options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+              {prompt: 'タグで絞り込み検索', onchange: 'submit(this.form);'} %>
+            <% end %>
+          </div>
 
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <!--ハンバーガーメニューの外観を設定-->
+          <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "#navbarNavDropdown"
+                        aria-controls = "navbarNavDropdown" aria-expanded = "false" aria-label = "Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav ml-auto">
+          <div class = "collapse navbar-collapse" id = "navbarNavDropdown">
+            <ul class = "navbar-nav ml-auto">
               <!--管理者ログイン時のheader-->
               <% if admin_signed_in? %>
 
@@ -111,8 +121,8 @@
                 </li>
 
               <% end %>
-          </ul>
-         </div>
+            </ul>
+          </div>
         </div>
       </nav>
     </header>

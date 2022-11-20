@@ -91,6 +91,11 @@
         <% end %>
       <% else %>
       <% end %>
+      <!--タグの表示　選択時、絞り込み表示-->
+      <% @recipe_d.tags.each do |tag| %>
+        <%= link_to tag.name, recipe_ds_path(tag_id: tag.id) %>
+      <% end %>
+      <!--レシピの投稿者とログインしているユーザーのidが一致したら編集・削除ボタンを表示-->
       <% if @recipe_d.user_id == current_user.id %>
       <div class = "col-sm-12 text-center">
         <%= link_to "編集する", edit_recipe_d_path(@recipe_d), class: 'btn btn-sm btn-success' %>

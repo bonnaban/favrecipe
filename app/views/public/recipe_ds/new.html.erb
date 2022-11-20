@@ -53,6 +53,21 @@
                 </div>
                 <div class = "col-sm-7 mt-2">
                 </div>
+                <!--タグの選択フォームの記述　ここから-->
+                <div class = "col-sm-12 mt-2">
+                  <div class="check_box">
+                    <span>料理ジャンル</span>
+                    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+                      <div>
+                        <%= tag.label do %>
+                          <%= tag.check_box %>
+                          <%= tag.text %>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+                <!--ここまで-->
                 <div class = "col-sm-12">
                   <span>材料</span>
                 </div>

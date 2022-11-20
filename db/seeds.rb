@@ -10,3 +10,13 @@ Admin.create!(
    email: 'admin@admin',
    password: 'testtest'
 )
+
+Tag.create([
+   { name: '洋食' },
+   { name: '和食' },
+   { name: '中華' },
+   { name: 'サラダ' },
+   { name: 'おつまみ' },
+   { name: 'デザート' },
+   { name: '創作料理' },
+])

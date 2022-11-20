@@ -1,6 +1,7 @@
 class Public::RecipeDsController < ApplicationController
   def index
-    @recipe_d = RecipeD.page(params[:page]).per(8)
+    @recipe_d = params[:tag_id].present? ? Tag.find(params[:tag_id]).recipe_ds : RecipeD.all
+    @recipe_ds = @recipe_d.page(params[:page]).per(8)
   end
 
   def new
@@ -47,7 +48,7 @@ class Public::RecipeDsController < ApplicationController
 
 private
   def recipe_d_params
-    params.require(:recipe_d).permit(:user_id, :title, :explanation, :time, :people, :image,
+    params.require(:recipe_d).permit(:user_id, :title, :explanation, :time, :people, :image, tag_ids: [],
                                     #cocoonで実装する動的なフォームで表示するテーブルの許可
                                     materials_attributes:[:id, :material_name, :quantity, :_destroy],
                                     procedures_attributes:[:id, :procedure_explanation, :image, :_destroy])
