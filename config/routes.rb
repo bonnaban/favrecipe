@@ -29,7 +29,7 @@ scope module: :public do
   #recipe_d
   resources :recipe_ds do
     resources :comments, only: [:create, :destroy]
-    resources :likes, only: [:create, :destroy]
+    resource :likes, only: [:create, :destroy]
   end
   resources :evaluations, only: [:create, :update, :destroy]
   #resources :comments, only: [:create, :destroy]

@@ -5,6 +5,7 @@ class RecipeD < ApplicationRecord
   has_many :materials, dependent: :destroy
   has_many :procedures, dependent: :destroy
   has_many :evaluations, dependent: :destroy
+  has_many :likes, dependent: :destroy
   has_many :post_tags, dependent: :destroy
   # 中間テーブルpost_tagsを介してtagsと関連付
   has_many :tags, through: :post_tags
@@ -13,6 +14,10 @@ class RecipeD < ApplicationRecord
   validates :explanation, presence: true
   validates :time, presence: true
   validates :people, presence: true
+
+  def favorited_by?(user)
+    likes.exists?(user_id: user.id)
+  end
 
   accepts_nested_attributes_for :materials, :procedures, allow_destroy: true
 end
