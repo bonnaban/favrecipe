@@ -2,22 +2,29 @@
   <div class = "container">
     <div class = "row">
       <%= render 'partial_template/profire' %>
-      <div class = "col-sm-5">
-        <%= image_tag asset_path('no_image.jpg'), class: "preview", style: "max-width:500px;" %>
-      </div>
-      <div class = "col-sm-5">
+      <div class = "col-sm-10">
+        <div class = "col-sm-11 offset-sm-1">
+          <h3><i class="fas fa-id-card"></i>マイプロフィール</h3>
+        </div>
         <div class = "row">
-          <div class = "col-sm-12">
-            ニックネーム
+          <div class = "col-sm-5">
+            <%= image_tag @user.get_profile_image(200,200), class: "mx-auto d-block" %>
           </div>
-          <div class = "col-sm-12">
-            <%= @user.nickname %>
-          </div>
-          <div class = "col-sm-12">
-            メールアドレス
-          </div>
-          <div class = "col-sm-12">
-            <%= @user.email %>
+          <div class = "col-sm-5">
+            <div class = "row">
+              <div class = "col-sm-12">
+                ニックネーム
+              </div>
+              <div class = "col-sm-12">
+                <%= @user.nickname %>
+              </div>
+              <div class = "col-sm-12">
+                メールアドレス
+              </div>
+              <div class = "col-sm-12">
+                <%= @user.email %>
+              </div>
+            </div>
           </div>
         </div>
       </div>

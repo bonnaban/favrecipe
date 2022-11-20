@@ -10,7 +10,7 @@
       <i class="fas fa-list"></i><%= link_to "投稿一覧", users_post_path(user_id: current_user.id) %>
     </div>
     <div class = "col-sm-12 mt-3">
-      <i class="fas fa-user-edit"></i><%= link_to "プロフィール編集", users_my_page_path %>
+      <i class="fas fa-user-edit"></i><%= link_to "プロフィール編集", users_information_edit_path %>
     </div>
     <div class = "col-sm-12 mt-3">
       <i class="fas fa-user-slash"></i><%= link_to "退会", users_confirmation_path %>

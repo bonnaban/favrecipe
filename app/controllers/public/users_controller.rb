@@ -23,6 +23,12 @@ class Public::UsersController < ApplicationController
   end
 
   def update
+    @user = current_user
+    if @user.update(user_params)
+      redirect_to users_my_page_path
+    else
+      render :edit
+    end
   end
 
   def withdrawal
@@ -35,6 +41,6 @@ class Public::UsersController < ApplicationController
 
 private
   def user_params
-    params.require(:user).permit(:nickname, :image)
+    params.require(:user).permit(:nickname, :email, :profile_image)
   end
 end
