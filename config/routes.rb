@@ -32,19 +32,18 @@ scope module: :public do
     resource :likes, only: [:create, :destroy]
   end
   resources :evaluations, only: [:create, :update, :destroy]
-  #resources :comments, only: [:create, :destroy]
   resources :materials, only: [:create, :update, :destroy]
   resources :procedures, only: [:create, :update, :destroy]
 end
 
 namespace :admin do
-  root to: 'admin/homes#top'
+  root to: 'homes#top'
   get '/top' => 'homes#top', as:'top'
-  resources :users, only: [:index, :show, :edit, :update]
+  resources :users, only: [:index, :show, :edit, :update] do
+    resources :comments, only: [:destroy]
+  end
   #recipe_d
-  patch '/admin/recipe_ds/:id/edit/2' => 'admin/recipe_ds#edit2'
   resources :recipe_ds, only: [:index, :show, :edit, :update, :destroy]
-  resources :comments, only: [:destroy]
   resources :materials, only: [:create, :update, :destroy]
   resources :procedures, only: [:create, :update, :destroy]
 end

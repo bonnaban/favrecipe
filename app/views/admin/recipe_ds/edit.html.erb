@@ -6,7 +6,7 @@
       </div>
       <%= render 'partial_template/error', error: @recipe_d %>
       <div class = "col-sm-12">
-        <%= form_with model: @recipe_d, url: recipe_d_path do |f| %>
+        <%= form_with model: @recipe_d, url: admin_recipe_d_path do |f| %>
           <div class = "row">
             <div class = "col-sm-6">
               <div>
@@ -65,7 +65,7 @@
                 <div>
                   <div class="mx-auto">
                     <%= f.fields_for :materials do |t| %>
-                      <%= render 'partial_template/material_fields', f: t %>
+                      <%= render "admin/recipe_ds/material_fields", f: t %>
                     <% end %>
                   </div>
                   <!--フォームにidを与える-->
@@ -93,7 +93,7 @@
             <div class = "col-sm-12">
               <div class="mx-auto">
                 <%= f.fields_for :procedures do |s| %>
-                  <%= render 'partial_template/procedure_fields', f: s %>
+                  <%= render "admin/recipe_ds/procedure_fields", f: s %>
                 <% end %>
               </div>
               <!--フォームにidを与える-->

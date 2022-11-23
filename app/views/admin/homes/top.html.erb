@@ -1,1 +1,39 @@
-aaaaa
+<main>
+  <div class = "container">
+    <div class = "col-sm-11 offset-sm-1">
+      <h3><i class="fas fa-list"></i>レシピ一覧</h3>
+    </div>
+    <div class = "row">
+      <% @recipe_ds.each do |recipe| %>
+        <div class = "col-sm-3">
+          <%= link_to admin_recipe_d_path(recipe) do %>
+            <div class = "card">
+              <% if recipe.image.attached? %>
+                <%= image_tag recipe.image.representation(resize_to_limit: [200, 200]), class: "mx-auto d-block" %>
+              <% else %>
+                <%= image_tag asset_path('no_image.jpg'), class: "mx-auto d-block", style: "max-width:500px;" %>
+              <% end %>
+              <div class = "card-body">
+                <h4 class = "card-title"><%= recipe.title %></h4>
+                <h5 class = "subtitle row">
+                  <%= image_tag recipe.user.get_profile_image(50,50), class: "mx-auto d-block" %>
+                  <%= link_to admin_recipe_d_path(recipe), class: 'mt-3' do %>
+                    <%= recipe.user.nickname %>
+                  <% end %>
+                </h5>
+
+              <div class = "row">
+                <div class = "col-sm-4"><i class="far fa-clock"></i><%= recipe.time %></div>
+                <div class = "col-sm-4 text-right"><i class="fas fa-heart"></i><%= recipe.likes.count %></div>
+              </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <div class = "col-sm-5 offset-sm-5">
+        <%= paginate @recipe_ds %>
+      </div>
+    </div>
+  </div>
+</main>

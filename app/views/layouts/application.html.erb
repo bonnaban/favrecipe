@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Naganocake</title>
+    <title>Favrecipe</title>
     <meta name = "viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -25,9 +25,16 @@
           <div class = "col-sm-4">
             <!--検索フォームの記述-->
             <%= form_tag recipe_ds_path, method: :get, class: 'boards__searchForm' do %>
-              <%= select_tag :tag_id,
-              options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
-              {prompt: 'タグで絞り込み検索', onchange: 'submit(this.form);'} %>
+              <% if admin_signed_in? %>
+                <%= select_tag :tag_id,
+                options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+                {prompt: 'タグで絞り込み検索', onchange: 'submit(this.form);'} %>
+              <% elsif user_signed_in? %>
+                <%= select_tag :tag_id,
+                options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+                {prompt: 'タグで絞り込み検索', onchange: 'submit(this.form);'} %>
+              <% else %>
+              <% end %>
             <% end %>
           </div>
 
@@ -42,7 +49,7 @@
               <% if admin_signed_in? %>
 
                 <li class = "nav-item">
-                  <%= link_to admin_recipe_ds_path, class: 'nav-link btn text-dark btn-sm' do %>
+                  <%= link_to admin_top_path, class: 'nav-link btn text-dark btn-sm' do %>
                     <i class="fas fa-list-ul"></i>レシピ一覧
                   <% end %>
                 </li>
