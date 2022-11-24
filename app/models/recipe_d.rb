@@ -15,9 +15,9 @@ class RecipeD < ApplicationRecord
   validates :time, presence: true
   validates :people, presence: true
 
-  # def favorited_by?(user)
-  #   likes.exists?(user_id: user.id)
-  # end
+  def favorited_by?(user)
+    likes.exists?(user_id: user.id)
+  end
 
   accepts_nested_attributes_for :materials, :procedures, allow_destroy: true
 end

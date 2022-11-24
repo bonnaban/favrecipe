@@ -11,7 +11,7 @@ class Admin::RecipeDsController < ApplicationController
 
   def update
     @recipe_d = RecipeD.find(params[:id])
-    if @recipe_d.update(admin_recipe_d_params)
+    if @recipe_d.update(recipe_d_params)
       redirect_to admin_recipe_d_path(@recipe_d)
     else
       render :edit

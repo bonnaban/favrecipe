@@ -92,8 +92,8 @@
       <% end %>
 
       <div class = "col-sm-12 text-center">
-        <%= link_to "編集する", edit_recipe_d_path(@recipe_d), class: 'btn btn-sm btn-success' %>
-        <%= link_to "削除する", recipe_d_path(@recipe_d), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "本当に削除しますか？" } %>
+        <%= link_to "編集する", edit_admin_recipe_d_path(@recipe_d), class: 'btn btn-sm btn-success' %>
+        <%= link_to "削除する", admin_recipe_d_path(@recipe_d), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "本当に削除しますか？" } %>
       </div>
 
     </div>
