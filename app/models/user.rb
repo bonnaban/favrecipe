@@ -9,6 +9,19 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :evaluations, dependent: :destroy
   has_many :likes, dependent: :destroy
+  # ここから
+  #def likes
+  #  Like.where(user_id: self.id)
+  #end
+
+  #def like_recipe_ds
+  #  RecipeD.where(id: self.likes.pluck(:recipe_d_id))
+  #end
+  # ↓ここまでの記述を一行にまとめて記述している
+  has_many :like_recipe_ds, through: :likes, source: :recipe_d
+  # ↑like_recipe_dsというアソシエーション用モデルを定義している(名称自由)。
+  # 上で定義したlikesを中間テーブルにしてその中でbelongs_toしているrecipe_d
+  # のデータをsourceで検索している。
 
   validates :nickname, presence: true
   validates :email, presence: true

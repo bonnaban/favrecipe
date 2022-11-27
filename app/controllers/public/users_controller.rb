@@ -7,9 +7,8 @@ class Public::UsersController < ApplicationController
   end
 
   def like
-    # user_idがparameterに送られたら、Userに基づいたrecipeを表示。送られなければ全て表示
-    @recipe_d = params[:tag_id].present? ? Tag.find(params[:tag_id]).recipe_ds : RecipeD.all
-    @recipe_ds = @recipe_d.page(params[:page]).per(8)
+    # userモデルで定義したlike_recipe_dsでいいね一覧表示
+    @recipe_ds = current_user.like_recipe_ds.page(params[:page]).per(8)
   end
 
   def post
@@ -43,4 +42,5 @@ private
   def user_params
     params.require(:user).permit(:nickname, :email, :profile_image)
   end
+
 end

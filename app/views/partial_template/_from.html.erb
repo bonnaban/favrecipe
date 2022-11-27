@@ -4,7 +4,11 @@
                 <!--javascriptで定義した関数を元に画像選択ボタン”ココ”に表示-->
                 <%= f.file_field :image,  accept: 'image/*', onchange: "recipeImage(this);" %>
                 <!--javascriptで選択した画像を表示 defaultでno_imageを設定-->
-                <%= image_tag asset_path('no_image.jpg'), class: "preview", style: "max-width:500px;" %>
+                <% if f.object.image.attached? %>
+                  <%= image_tag f.object.image.representation(resize_to_limit: [200, 200]), class: "mx-auto d-block" %>
+                <% else %>
+                  <%= image_tag asset_path('no_image.jpg'), class: "preview", style: "max-width:500px;" %>
+                <% end %>
               </div>
             </div>
             <div class = "col-sm-6">

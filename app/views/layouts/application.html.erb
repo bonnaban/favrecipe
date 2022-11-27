@@ -24,17 +24,19 @@
           <% end %>
           <div class = "col-sm-4">
             <!--検索フォームの記述-->
-            <%= form_tag recipe_ds_path, method: :get, class: 'boards__searchForm' do %>
-              <% if admin_signed_in? %>
+            <% if admin_signed_in? %>
+              <%= form_tag admin_top_path, method: :get, class: 'boards__searchForm' do %>
                 <%= select_tag :tag_id,
                 options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
                 {prompt: 'タグで絞り込み検索', onchange: 'submit(this.form);'} %>
-              <% elsif user_signed_in? %>
-                <%= select_tag :tag_id,
-                options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
-                {prompt: 'タグで絞り込み検索', onchange: 'submit(this.form);'} %>
-              <% else %>
               <% end %>
+            <% elsif user_signed_in? %>
+              <%= form_tag recipe_ds_path, method: :get, class: 'boards__searchForm' do %>
+                <%= select_tag :tag_id,
+                options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+                {prompt: 'タグで絞り込み検索', onchange: 'submit(this.form);'} %>
+              <% end %>
+            <% else %>
             <% end %>
           </div>
 

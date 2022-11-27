@@ -88,7 +88,7 @@
       <% end %>
       <!--タグの表示　選択時、絞り込み表示-->
       <% @recipe_d.tags.each do |tag| %>
-        <%= link_to tag.name, recipe_ds_path(tag_id: tag.id) %>
+        <%= link_to tag.name, admin_top_path(tag_id: tag.id) %>
       <% end %>
 
       <div class = "col-sm-12 text-center">
