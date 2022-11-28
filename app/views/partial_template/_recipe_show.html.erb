@@ -80,13 +80,14 @@
       <div class = "col-sm-11 offset-sm-1 mt-3">
         <h3><i class="far fa-comment"></i>コメント</h3>
       </div>
-      <!--コメントをスクロール表示　削除ボタンはレシピの投稿者、コメントの投稿者、adminのみ表示-->
+      <!--コメント投稿者のprofile_image,nickname,投稿日,コメント,削除ボタンをスクロール表示-->
+      <!--削除ボタンはレシピの投稿者、コメントの投稿者、adminのみ表示-->
       <div class = "col-sm-11 offset-sm-1 mt-3">
         <div style = "height:150px; width:900px; overflow-y:scroll; border: solid">
           <% recipe_d.comments.each do |come| %>
-            <div class = "col-sm-12 mt-3 border-bottom">
+            <div class = "col-sm-12">
               <div class = "row">
-                <div class = "col-sm-1">
+                <div class = "col-sm-1 mb-3">
                   <% if recipe_d.image.attached? %>
                     <%= image_tag recipe_d.image.representation(resize_to_limit: [50, 50]) %>
                   <% else %>
@@ -99,20 +100,24 @@
                 <div class = "col-sm-1 offset-sm-7 mt-2">
                   <%= come.created_at.strftime('%Y/%m/%d') %>
                 </div>
-
-                <div class = "col-sm-10 pt-3 pb-3 commentbg">
-                  <%= come.comment %>
-                </div>
-                <div class = "col-sm-2 pt-3 commentbg">
-                  <% if user_signed_in? %>
-                    <% if come.user == current_user %>
-                      <%= link_to "削除", recipe_d_comment_path(come.recipe_d, come), class: 'btn btn-sm btn-danger', method: :delete %>
-                    <% elsif @recipe_d.user == current_user %>
-                      <%= link_to "削除", recipe_d_comment_path(come.recipe_d, come), class: 'btn btn-sm btn-danger', method: :delete %>
-                    <% end %>
-                  <% elsif admin_signed_in? %>
-                      <%= link_to "削除", admin_recipe_d_comment_path(come.recipe_d, come), class: 'btn btn-sm btn-danger', method: :delete %>
-                  <% end %>
+                <div class = "col-sm-12">
+                  <div class = "row">
+                    <!--hukidashiはcssで吹き出しを実装している-->
+                    <div class = "col-sm-10 hukidashi">
+                      <%= come.comment %>
+                    </div>
+                    <div class = "col-sm-2">
+                      <% if user_signed_in? %>
+                        <% if come.user == current_user %>
+                          <%= link_to "削除", recipe_d_comment_path(come.recipe_d, come), class: 'btn btn-sm btn-danger', method: :delete %>
+                        <% elsif @recipe_d.user == current_user %>
+                          <%= link_to "削除", recipe_d_comment_path(come.recipe_d, come), class: 'btn btn-sm btn-danger', method: :delete %>
+                        <% end %>
+                      <% elsif admin_signed_in? %>
+                          <%= link_to "削除", admin_recipe_d_comment_path(come.recipe_d, come), class: 'btn btn-sm btn-danger', method: :delete %>
+                      <% end %>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

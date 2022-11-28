@@ -12,9 +12,8 @@ class Public::UsersController < ApplicationController
   end
 
   def post
-    # user_idがparameterに送られたら、Userに基づいたrecipeを表示。送られなければ全て表示
-    @recipe_d = params[:user_id].present? ? User.find(params[:user_id]).recipe_ds : RecipeD.all
-    @recipe_ds = @recipe_d.page(params[:page]).per(8)
+    # Userに基づいたrecipeを表示。
+    @recipe_ds = User.find(params[:user_id]).recipe_ds.page(params[:page]).per(8)
   end
 
   def edit

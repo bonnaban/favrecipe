@@ -13,9 +13,16 @@
             <h4 class = "card-title"><%= recipe.title %></h4>
             <h5 class = "subtitle text-left row">
               <%= image_tag recipe.user.get_profile_image(50,50), class: "ml-2" %>
-              <div class = "mt-2">
-                <%= recipe.user.nickname %>
-              </div>
+              <!--↓sign_inしているのが投稿者,他のuser,adminでリンク先を変更-->
+              <% if user_signed_in? %>
+                <% if recipe.user.id == current_user.id %>
+                  <%= link_to recipe.user.nickname, users_post_path(user_id: current_user.id), class: 'mt-2' %>
+                <% else %>
+                  <%= link_to recipe.user.nickname, recipe_ds_path(user_id: recipe.user.id), class: 'mt-2' %>
+                <% end %>
+              <% else %>
+                <%= link_to recipe.user.nickname, admin_top_path(user_id: recipe.user.id), class: 'mt-2' %>
+              <% end %>
             </h5>
 
           <!--調理時間、いいね数、コメント数を表示-->
