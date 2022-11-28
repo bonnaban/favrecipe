@@ -39,11 +39,11 @@ end
 namespace :admin do
     root to: 'homes#top'
     get '/top' => 'homes#top', as:'top'
-    resources :users, only: [:index, :show, :edit, :update] do
+    resources :users, only: [:index, :show, :edit, :update]
+    #recipe_d
+    resources :recipe_ds, only: [:index, :show, :edit, :update, :destroy] do
       resources :comments, only: [:destroy]
     end
-    #recipe_d
-    resources :recipe_ds, only: [:index, :show, :edit, :update, :destroy]
     resources :materials, only: [:create, :update, :destroy]
     resources :procedures, only: [:create, :update, :destroy]
   end
