@@ -3,6 +3,13 @@ class Admin::UsersController < ApplicationController
     @users = User.page(params[:page]).per(5)
   end
 
+  def post
+    @user = User.find(params[:user_id])
+    # user_idがparameterに送られたら、Userに基づいたrecipeを表示。送られなければ全て表示
+    @recipe_d = params[:user_id].present? ? User.find(params[:user_id]).recipe_ds : RecipeD.all
+    @recipe_ds = @recipe_d.page(params[:page]).per(8)
+  end
+
   def show
     @user = User.find(params[:id])
   end
