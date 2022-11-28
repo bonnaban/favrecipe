@@ -1,6 +1,5 @@
 <main>
   <div class = "container">
-    <%= render 'partial_template/error', error: @user %>
     <%= form_with model: @user, url: users_information_path, method: :patch do |f| %>
       <div class = "row">
         <%= render 'partial_template/profire' %>
@@ -8,6 +7,7 @@
           <div class = "col-sm-11 offset-sm-1">
             <h3><i class="fas fa-user-edit"></i>プロフィール編集</h3>
           </div>
+          <%= render 'partial_template/error', error: @user %>
           <%= render 'partial_template/user_edit', user: @user, f: f %>
         </div>
       </div>

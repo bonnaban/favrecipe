@@ -1,0 +1,16 @@
+ja: # 日本語の設定を行う
+  activerecord:
+    attributes:
+      user: # モデル名
+        email: "メールアドレス"
+        nickname: "ニックネーム"
+      recipe_d: # モデル名
+        title: "料理名"
+        explanation: "料理説明"
+        time: "調理時間"
+        people: "何人分か"
+      materials: # モデル名
+        material_name: "材料名"
+        quantity: "分量"
+      procedures: # モデル名
+        procedure_explanation: "手順"
