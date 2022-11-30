@@ -7,7 +7,7 @@
       <%= render 'partial_template/error', error: @recipe_d %>
       <div class = "col-sm-12">
         <%= form_with model: @recipe_d, url: recipe_d_path do |f| %>
-          <%= render 'partial_template/from', f: f, text: "編集を保存する" %>
+          <%= render 'partial_template/from', f: f, text: "編集を保存" %>
         <% end %>
       </div>
     </div>
