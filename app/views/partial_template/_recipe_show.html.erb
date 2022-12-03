@@ -1,177 +1,175 @@
-<main>
-  <div class = "container">
-    <div class = "row">
-      <div class = "col-sm-11 offset-sm-1">
-        <h3><i class="fas fa-cookie-bite"></i><%= recipe_d.title %></h3>
-      </div>
-      <div class = "col-sm-12">
-        <!--料理画像を表示 画像が無ければno_imageを表示-->
-        <% if recipe_d.image.attached? %>
-          <%= image_tag recipe_d.image.representation(resize_to_limit: [500, 500]), class: "mx-auto d-block" %>
-        <% else %>
-          <%= image_tag asset_path('no_image.jpg'), class: "mx-auto d-block", style: "max-width:500px;" %>
-        <% end %>
-      </div>
-      <div class = "col-sm-1 offset-sm-3">
-        投稿日
-      </div>
-      <div class = "col-sm-1">
-        <%= recipe_d.created_at.strftime('%Y/%m/%d') %>
-      </div>
-      <div class = "col-sm-1 offset-sm-1">
-        調理時間
-      </div>
-      <div class = "col-sm-1">
-        <%= recipe_d.time %>分
-      </div>
-      <!--いいね機能の実装 userのみ表示 ここから-->
-      <% if user_signed_in? %>
-        <% if current_user.email == 'guest@example.com' %>
-        <% else %>
-          <div class = "col-sm-12 text-center">
-            <% if recipe_d.favorited_by?(current_user) %>
-              <p>
-                <%= link_to recipe_d_likes_path(recipe_d), method: :delete do %>
-                  <h3><i class="fas fa-heart"></i><%= recipe_d.likes.count %>いいね</h3>
+<div class = "container">
+  <div class = "row">
+    <div class = "col-sm-11 offset-sm-1">
+      <h3><i class="fas fa-cookie-bite"></i><%= recipe_d.title %></h3>
+    </div>
+    <div class = "col-sm-12">
+      <!--料理画像を表示 画像が無ければno_imageを表示-->
+      <% if recipe_d.image.attached? %>
+        <%= image_tag recipe_d.image.representation(resize_to_limit: [500, 500]), class: "mx-auto d-block" %>
+      <% else %>
+        <%= image_tag asset_path('no_image.jpg'), class: "mx-auto d-block", style: "max-width:500px;" %>
+      <% end %>
+    </div>
+    <div class = "col-sm-1 offset-sm-3">
+      投稿日
+    </div>
+    <div class = "col-sm-1">
+      <%= recipe_d.created_at.strftime('%Y/%m/%d') %>
+    </div>
+    <div class = "col-sm-1 offset-sm-1">
+      調理時間
+    </div>
+    <div class = "col-sm-1">
+      <%= recipe_d.time %>分
+    </div>
+    <!--いいね機能の実装 userのみ表示 ここから-->
+    <% if user_signed_in? %>
+      <% if current_user.email == 'guest@example.com' %>
+      <% else %>
+        <div class = "col-sm-12 text-center">
+          <% if recipe_d.favorited_by?(current_user) %>
+            <p>
+              <%= link_to recipe_d_likes_path(recipe_d), method: :delete do %>
+                <h3><i class="fas fa-heart"></i><%= recipe_d.likes.count %>いいね</h3>
+              <% end %>
+            </p>
+          <% else %>
+            <p>
+              <%= link_to recipe_d_likes_path(recipe_d), method: :post do %>
+                <h3><i class="far fa-heart"></i><%= recipe_d.likes.count %> いいね</h3>
+              <% end %>
+            </p>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+    <!--ここまで-->
+    <div class = "col-sm-11 offset-sm-1 mt-3">
+      <h3><i class="fas fa-book-open"></i>料理説明</h3>
+    </div>
+    <div class = "col-sm-11 offset-sm-1">
+      <%= recipe_d.explanation %>
+    </div>
+    <div class = "col-sm-11 offset-sm-1 mt-3">
+      <h3><i class="fas fa-user"></i>材料<%= recipe_d.people %>人分</h3>
+    </div>
+    <!--アソシエーションで紐づいているmaterialsのカラムをeach文で表示-->
+    <% recipe_d.materials.each do |material|%>
+    <span class = "col-sm-3 offset-sm-2">
+      <%= material.material_name %>
+    </span>
+    <span class = "col-sm-3 text-right">
+      <%= material.quantity %>
+    </span>
+    <% end %>
+    <div class = "col-sm-11 offset-sm-1 mt-3">
+      <h3><i class="fas fa-utensils"></i>作り方</h3>
+    </div>
+    <!--アソシエーションで紐づいているproceduresのカラムをeach文で表示-->
+    <% recipe_d.procedures.each do |procedure|%>
+    <span class = "col-sm-3 offset-sm-2">
+      <%= procedure.procedure_explanation %>
+    </span>
+    <span class = "col-sm-3 text-right">
+      <% if procedure.image.attached? %>
+        <%= image_tag procedure.image.representation(resize_to_limit: [100, 100]) %>
+      <% else %>
+          <%= image_tag asset_path('no_image.jpg'), class: "preview", style: "max-width:100px;" %>
+      <% end %>
+    </span>
+    <% end %>
+    <div class = "col-sm-11 offset-sm-1 mt-3">
+      <h3><i class="far fa-comment"></i>コメント</h3>
+    </div>
+    <!--コメント投稿者のprofile_image,nickname,投稿日,コメント,削除ボタンをスクロール表示-->
+    <!--削除ボタンはレシピの投稿者、コメントの投稿者、adminのみ表示-->
+    <div class = "col-sm-11 offset-sm-1 mt-3">
+      <div style = "height:150px; width:900px; overflow-y:scroll; border: solid">
+        <% recipe_d.comments.each do |come| %>
+          <div class = "col-sm-12">
+            <div class = "row">
+              <div class = "col-sm-1 mb-3">
+                <% if recipe_d.image.attached? %>
+                  <%= image_tag recipe_d.image.representation(resize_to_limit: [50, 50]) %>
+                <% else %>
+                  <%= image_tag asset_path('no_image.jpg'), class: "mx-auto d-block", style: "max-width:50px;" %>
                 <% end %>
-              </p>
-            <% else %>
-              <p>
-                <%= link_to recipe_d_likes_path(recipe_d), method: :post do %>
-                  <h3><i class="far fa-heart"></i><%= recipe_d.likes.count %> いいね</h3>
+              </div>
+              <div class = "col-sm-1 mt-2">
+                <%= recipe_d.user.nickname %>
+              </div>
+              <div class = "col-sm-2 mt-2">
+                <% if admin_signed_in? %>
+                  User ID:<%= recipe_d.user.id %>
                 <% end %>
-              </p>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
-      <!--ここまで-->
-      <div class = "col-sm-11 offset-sm-1 mt-3">
-        <h3><i class="fas fa-book-open"></i>料理説明</h3>
-      </div>
-      <div class = "col-sm-11 offset-sm-1">
-        <%= recipe_d.explanation %>
-      </div>
-      <div class = "col-sm-11 offset-sm-1 mt-3">
-        <h3><i class="fas fa-user"></i>材料<%= recipe_d.people %>人分</h3>
-      </div>
-      <!--アソシエーションで紐づいているmaterialsのカラムをeach文で表示-->
-      <% recipe_d.materials.each do |material|%>
-      <span class = "col-sm-3 offset-sm-2">
-        <%= material.material_name %>
-      </span>
-      <span class = "col-sm-3 text-right">
-        <%= material.quantity %>
-      </span>
-      <% end %>
-      <div class = "col-sm-11 offset-sm-1 mt-3">
-        <h3><i class="fas fa-utensils"></i>作り方</h3>
-      </div>
-      <!--アソシエーションで紐づいているproceduresのカラムをeach文で表示-->
-      <% recipe_d.procedures.each do |procedure|%>
-      <span class = "col-sm-3 offset-sm-2">
-        <%= procedure.procedure_explanation %>
-      </span>
-      <span class = "col-sm-3 text-right">
-        <% if procedure.image.attached? %>
-          <%= image_tag procedure.image.representation(resize_to_limit: [100, 100]) %>
-        <% else %>
-            <%= image_tag asset_path('no_image.jpg'), class: "preview", style: "max-width:100px;" %>
-        <% end %>
-      </span>
-      <% end %>
-      <div class = "col-sm-11 offset-sm-1 mt-3">
-        <h3><i class="far fa-comment"></i>コメント</h3>
-      </div>
-      <!--コメント投稿者のprofile_image,nickname,投稿日,コメント,削除ボタンをスクロール表示-->
-      <!--削除ボタンはレシピの投稿者、コメントの投稿者、adminのみ表示-->
-      <div class = "col-sm-11 offset-sm-1 mt-3">
-        <div style = "height:150px; width:900px; overflow-y:scroll; border: solid">
-          <% recipe_d.comments.each do |come| %>
-            <div class = "col-sm-12">
-              <div class = "row">
-                <div class = "col-sm-1 mb-3">
-                  <% if recipe_d.image.attached? %>
-                    <%= image_tag recipe_d.image.representation(resize_to_limit: [50, 50]) %>
-                  <% else %>
-                    <%= image_tag asset_path('no_image.jpg'), class: "mx-auto d-block", style: "max-width:50px;" %>
-                  <% end %>
-                </div>
-                <div class = "col-sm-1 mt-2">
-                  <%= recipe_d.user.nickname %>
-                </div>
-                <div class = "col-sm-2 mt-2">
-                  <% if admin_signed_in? %>
-                    User ID:<%= recipe_d.user.id %>
-                  <% end %>
-                </div>
-                <div class = "col-sm-1 offset-sm-5 mt-2">
-                  <%= come.created_at.strftime('%Y/%m/%d') %>
-                </div>
-                <div class = "col-sm-12">
-                  <div class = "row">
-                    <!--hukidashiはcssで吹き出しを実装している-->
-                    <div class = "col-sm-10 hukidashi">
-                      <%= come.comment %>
-                    </div>
-                    <div class = "col-sm-2">
-                      <% if user_signed_in? %>
-                        <% if come.user == current_user %>
-                          <%= link_to "削除", recipe_d_comment_path(come.recipe_d, come), class: 'btn btn-sm btn-danger', method: :delete %>
-                        <% elsif @recipe_d.user == current_user %>
-                          <%= link_to "削除", recipe_d_comment_path(come.recipe_d, come), class: 'btn btn-sm btn-danger', method: :delete %>
-                        <% end %>
-                      <% elsif admin_signed_in? %>
-                          <%= link_to "削除", admin_recipe_d_comment_path(come.recipe_d, come), class: 'btn btn-sm btn-danger', method: :delete %>
+              </div>
+              <div class = "col-sm-1 offset-sm-5 mt-2">
+                <%= come.created_at.strftime('%Y/%m/%d') %>
+              </div>
+              <div class = "col-sm-12">
+                <div class = "row">
+                  <!--hukidashiはcssで吹き出しを実装している-->
+                  <div class = "col-sm-10 hukidashi">
+                    <%= come.comment %>
+                  </div>
+                  <div class = "col-sm-2">
+                    <% if user_signed_in? %>
+                      <% if come.user == current_user %>
+                        <%= link_to "削除", recipe_d_comment_path(come.recipe_d, come), class: 'btn btn-sm btn-danger', method: :delete %>
+                      <% elsif @recipe_d.user == current_user %>
+                        <%= link_to "削除", recipe_d_comment_path(come.recipe_d, come), class: 'btn btn-sm btn-danger', method: :delete %>
                       <% end %>
-                    </div>
+                    <% elsif admin_signed_in? %>
+                        <%= link_to "削除", admin_recipe_d_comment_path(come.recipe_d, come), class: 'btn btn-sm btn-danger', method: :delete %>
+                    <% end %>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <% if user_signed_in? %>
+      <!--ゲストとadminはコメント投稿機能を非表示-->
+      <% if current_user.email == 'guest@example.com' %>
+      <% else %>
+        <div class = "col-sm-11 offset-sm-1 mt-3">
+          <h3><i class="fas fa-comment-medical"></i>コメント投稿</h3>
+        </div>
+        <div class = "col-sm-10 offset-sm-1 mt-3">
+          <%= form_with model: [recipe_d, comment] do |f| %>
+            <%= f.text_area :comment, class:"form-control", :placeholder => "レシピへの感想はこちらから！！" %>
+            <div class = "text-center">
+              <%= f.submit "コメントする", class: "btn btn-sm btn-success" %>
+            </div>
           <% end %>
         </div>
-      </div>
-
-      <% if user_signed_in? %>
-        <!--ゲストとadminはコメント投稿機能を非表示-->
-        <% if current_user.email == 'guest@example.com' %>
-        <% else %>
-          <div class = "col-sm-11 offset-sm-1 mt-3">
-            <h3><i class="fas fa-comment-medical"></i>コメント投稿</h3>
-          </div>
-          <div class = "col-sm-10 offset-sm-1 mt-3">
-            <%= form_with model: [recipe_d, comment] do |f| %>
-              <%= f.text_area :comment, class:"form-control", :placeholder => "レシピへの感想はこちらから！！" %>
-              <div class = "text-center">
-                <%= f.submit "コメントする", class: "btn btn-sm btn-success" %>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-      <% else %>
       <% end %>
-      <!--タグの表示　選択時、絞り込み表示-->
-      <div class = "col-sm-11 offset-sm-1 mt-3">
-            <h3><i class="fas fa-tag"></i>タグ</h3>
-          </div>
-      <div class = "col-sm-10 offset-sm-1 mt-3">
-        <% recipe_d.tags.each do |tag| %>
-          <%= link_to tag.name, recipe_ds_path(tag_id: tag.id), class: 'btn btn-sm btn-primary' %>
-        <% end %>
-      </div>
-      <!--adminとレシピの投稿者のみ編集・削除ボタンを表示-->
-      <% if admin_signed_in? %>
-        <div class = "col-sm-12 text-center">
-          <%= link_to "編集する", edit_admin_recipe_d_path(recipe_d), class: 'btn btn-sm btn-success' %>
-          <%= link_to "削除する", admin_recipe_d_path(recipe_d), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "本当に削除しますか？" } %>
-        </div>
-      <% elsif recipe_d.user_id == current_user.id %>
-        <div class = "col-sm-12 text-center">
-          <%= link_to "編集する", edit_recipe_d_path(recipe_d), class: 'btn btn-sm btn-success' %>
-          <%= link_to "削除する", recipe_d_path(recipe_d), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "本当に削除しますか？" } %>
-        </div>
+    <% else %>
+    <% end %>
+    <!--タグの表示　選択時、絞り込み表示-->
+    <div class = "col-sm-11 offset-sm-1 mt-3">
+      <h3><i class="fas fa-tag"></i>タグ</h3>
+    </div>
+    <div class = "col-sm-10 offset-sm-1 mt-3 mb-3">
+      <% recipe_d.tags.each do |tag| %>
+        <%= link_to tag.name, recipe_ds_path(tag_id: tag.id), class: 'btn btn-sm btn-primary' %>
       <% end %>
     </div>
+    <!--adminとレシピの投稿者のみ編集・削除ボタンを表示-->
+    <% if admin_signed_in? %>
+      <div class = "col-sm-12 text-center">
+        <%= link_to "編集する", edit_admin_recipe_d_path(recipe_d), class: 'btn btn-sm btn-success' %>
+        <%= link_to "削除する", admin_recipe_d_path(recipe_d), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "本当に削除しますか？" } %>
+      </div>
+    <% elsif recipe_d.user_id == current_user.id %>
+      <div class = "col-sm-12 text-center">
+        <%= link_to "編集する", edit_recipe_d_path(recipe_d), class: 'btn btn-sm btn-success' %>
+        <%= link_to "削除する", recipe_d_path(recipe_d), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "本当に削除しますか？" } %>
+      </div>
+    <% end %>
   </div>
-</main>
+</div>

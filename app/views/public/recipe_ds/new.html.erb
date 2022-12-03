@@ -1,15 +1,13 @@
-<main>
-  <div class = "container">
-    <div class = "row">
-      <div class = "col-sm-11 offset-sm-1">
-        <h3><i class="fas fa-plus-circle"></i>レシピ投稿</h3>
-      </div>
-      <%= render 'partial_template/error', error: @recipe_d %>
-      <div class = "col-sm-12">
-        <%= form_with model: @recipe_d, url: recipe_ds_path do |f| %>
-          <%= render 'partial_template/from', f: f, text: "レシピ登録" %>
-        <% end %>
-      </div>
+<div class = "container">
+  <div class = "row">
+    <div class = "col-sm-11 offset-sm-1">
+      <h3><i class="fas fa-plus-circle"></i>レシピ投稿</h3>
+    </div>
+    <%= render 'partial_template/error', error: @recipe_d %>
+    <div class = "col-sm-12">
+      <%= form_with model: @recipe_d, url: recipe_ds_path do |f| %>
+        <%= render 'partial_template/from', f: f, text: "レシピ登録" %>
+      <% end %>
     </div>
   </div>
-</main>
+</div>

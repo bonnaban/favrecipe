@@ -1,45 +1,42 @@
-<main>
-  <div class = "container">
-    <div class = "row">
-      <div class = "col-sm-11 offset-sm-1">
-        <h3><i class="fas fa-cookie-bite"></i>会員一覧</h3>
-      </div>
+<div class = "container">
+  <div class = "row">
+    <div class = "col-sm-11 offset-sm-1">
+      <h3><i class="fas fa-cookie-bite"></i>会員一覧</h3>
+    </div>
 
-      <table class = "col-sm-8 offset-sm-2" border = "2">
-        <thead>
+    <table class = "col-sm-8 offset-sm-2" border = "2">
+      <thead>
+        <tr>
+          <th bgcolor = "#C0C0C0">会員ID</th>
+          <th bgcolor = "#C0C0C0">ニックネーム</th>
+          <th bgcolor = "#C0C0C0">メールアドレス</th>
+          <th bgcolor = "#C0C0C0">ステータス</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
           <tr>
-            <th bgcolor = "#C0C0C0">会員ID</th>
-            <th bgcolor = "#C0C0C0">ニックネーム</th>
-            <th bgcolor = "#C0C0C0">メールアドレス</th>
-            <th bgcolor = "#C0C0C0">ステータス</th>
+            <td><%= user.id %></td>
+            <td>
+              <%= link_to admin_user_path(user) do %>
+                <%= user.nickname %>
+              <% end %>
+            </td>
+            <td><%= user.email %></td>
+            <td>
+              <% if user.is_active %>
+                <font color = "green">有効</font>
+              <% else %>
+                <font color = "gray">退会</font>
+              <% end %>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          <% @users.each do |user| %>
-            <tr>
-              <td><%= user.id %></td>
-              <td>
-                <%= link_to admin_user_path(user) do %>
-                  <%= user.nickname %>
-                <% end %>
-              </td>
-              <td><%= user.email %></td>
-              <td>
-                <% if user.is_active %>
-                  <font color = "green">有効</font>
-                <% else %>
-                  <font color = "gray">退会</font>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-
-    <div class = "col-sm-2 offset-sm-5">
-      <%= paginate @users %>
-    </div>
-
+        <% end %>
+      </tbody>
+    </table>
   </div>
-</main>
+
+  <div class = "col-sm-2 offset-sm-5">
+    <%= paginate @users %>
+  </div>
+</div>

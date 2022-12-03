@@ -1,16 +1,14 @@
-<main>
-  <div class = "container">
-    <div class = "row">
-      <div class = "col-sm-11 offset-sm-1">
-        <h3><i class="fas fa-cookie-bite"></i><%= @user.nickname %>さんの会員情報編集</h3>
-      </div>
-      <%= render 'partial_template/error', error: @user %>
-      <%= form_with model: @user, url: admin_user_path, method: :patch do |f| %>
-        <div class = "col-sm-10">
-          <%= render 'partial_template/user_edit', user: @user, f: f %>
-        </div>
-      <% end %>
-
+<div class = "container">
+  <div class = "row">
+    <div class = "col-sm-11 offset-sm-1">
+      <h3><i class="fas fa-cookie-bite"></i><%= @user.nickname %>さんの会員情報編集</h3>
     </div>
+    <%= render 'partial_template/error', error: @user %>
+    <%= form_with model: @user, url: admin_user_path, method: :patch do |f| %>
+      <div class = "col-sm-10">
+        <%= render 'partial_template/user_edit', user: @user, f: f %>
+      </div>
+    <% end %>
+
   </div>
-</main>
+</div>

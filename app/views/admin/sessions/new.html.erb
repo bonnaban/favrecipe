@@ -1,39 +1,37 @@
-<main>
-  <%= form_with model: @admin, url: admin_session_path do |f| %>
-    <div class = "container">
-      <div class = "row">
-        <div class = "col-sm-11 offset-sm-1">
-          <h3><i class="fas fa-sign-in-alt"></i>管理者ログイン</h3>
-        </div>
-        <div class = "col-sm-10 offset-sm-2">
-          <%= render "admin/shared/error_messages", resource: resource %>
+<%= form_with model: @admin, url: admin_session_path do |f| %>
+  <div class = "container">
+    <div class = "row">
+      <div class = "col-sm-11 offset-sm-1">
+        <h3><i class="fas fa-sign-in-alt"></i>管理者ログイン</h3>
+      </div>
+      <div class = "col-sm-10 offset-sm-2">
+        <%= render "admin/shared/error_messages", resource: resource %>
 
-            <div class = "row">
-              <div class = "col-sm-3">
-                メールアドレス
-              </div>
-              <div class = "col-sm-9">
-                <%= f.email_field :email, autofocus: true, autocomplete: "email", :placeholder => "sample@example.com" %>
-              </div>
+          <div class = "row">
+            <div class = "col-sm-3">
+              メールアドレス
             </div>
-
-            <div class = "row mt-3">
-              <div class = "col-sm-3">
-                パスワード
-              </div>
-              <div class = "col-sm-9">
-                <%= f.password_field :password, autocomplete: "current-password" %>
-              </div>
+            <div class = "col-sm-9">
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", :placeholder => "sample@example.com" %>
             </div>
+          </div>
 
-            <div class = "col-sm-2 offset-sm-3 mt-3">
-              <%= f.submit "ログイン", class: "btn  btn-sm btn-primary" %>
+          <div class = "row mt-3">
+            <div class = "col-sm-3">
+              パスワード
             </div>
+            <div class = "col-sm-9">
+              <%= f.password_field :password, autocomplete: "current-password" %>
+            </div>
+          </div>
 
-          <%= render "admin/shared/links" %>
+          <div class = "col-sm-2 offset-sm-3 mt-3">
+            <%= f.submit "ログイン", class: "btn  btn-sm btn-primary" %>
+          </div>
 
-        </div>
+        <%= render "admin/shared/links" %>
+
       </div>
     </div>
-  <% end %>
-</main>
+  </div>
+<% end %>

@@ -1,4 +1,5 @@
 class Public::RecipeDsController < ApplicationController
+  before_action :guest_check, {only:[:new, :edit]}
   def index
     # tag_idがparameterに送られたら,Tagに基づいたrecipeを表示。
     # user_idがparameterに送られたら,Userに基づいたrecipeを表示。送られなければ全て表示
@@ -61,5 +62,11 @@ private
                                     #cocoonで実装する動的なフォームで表示するテーブルの許可
                                     materials_attributes:[:id, :material_name, :quantity, :_destroy],
                                     procedures_attributes:[:id, :procedure_explanation, :image, :_destroy])
+  end
+  # ゲストログイン時の制限
+  def guest_check
+    if current_user == User.find(2)
+      redirect_to root_path, notice: "このページを見るには会員登録が必要です。"
+    end
   end
 end

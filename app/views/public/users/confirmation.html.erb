@@ -1,18 +1,16 @@
-<main>
-  <div class = "container">
-    <div class = "row">
-      <%= render 'partial_template/profire' %>
-      <div class = "col-sm-10 mx-auto">
-        <div align = "center">
-          <h5><strong>本当に退会しますか？</strong></h5>
-          <p>
-            退会すると、会員登録情報が削除さえます。</br>
-            退会する場合は、「退会する」をクリックしてください。
-          </p>
-          <%= link_to "退会しない", users_my_page_path, class: 'btn btn-sm btn-primary' %>
-          <%= link_to "退会する", users_withdrawal_path, method: :patch, data: { confirm: "本当に退会しますか？" }, class: 'btn btn-sm btn-danger' %>
-        </div>
+<div class = "container">
+  <div class = "row">
+    <%= render 'partial_template/profire' %>
+    <div class = "col-sm-10 mx-auto">
+      <div align = "center">
+        <h5><strong>本当に退会しますか？</strong></h5>
+        <p>
+          退会すると、会員登録情報が削除さえます。</br>
+          退会する場合は、「退会する」をクリックしてください。
+        </p>
+        <%= link_to "退会しない", users_my_page_path, class: 'btn btn-sm btn-primary' %>
+        <%= link_to "退会する", users_withdrawal_path, method: :patch, data: { confirm: "本当に退会しますか？" }, class: 'btn btn-sm btn-danger' %>
       </div>
     </div>
   </div>
-</main>
+</div>

@@ -1,12 +1,10 @@
-<main>
-  <div class = "container">
-    <div class = "row">
-      <%= render 'partial_template/profire' %>
-      <div class = "col-sm-10">
-        <div class = "col-sm-11 offset-sm-1">
-          <h3><i class="fas fa-list"></i>自分の投稿一覧</h3>
-        </div>
-        <%= render 'partial_template/recipe_index', recipe_ds: @recipe_ds %>
+<div class = "container">
+  <div class = "row">
+    <%= render 'partial_template/profire' %>
+    <div class = "col-sm-10">
+      <div class = "col-sm-11 offset-sm-1">
+        <h3><i class="fas fa-list"></i>自分の投稿一覧</h3>
       </div>
-  </div>
-</main>
+      <%= render 'partial_template/recipe_index', recipe_ds: @recipe_ds %>
+    </div>
+</div>

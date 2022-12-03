@@ -1,4 +1,5 @@
 class Public::UsersController < ApplicationController
+  before_action :guest_check
   def show
     @user = current_user
   end
@@ -41,5 +42,10 @@ private
   def user_params
     params.require(:user).permit(:nickname, :email, :profile_image)
   end
-
+  # ゲストログイン時の制限
+  def guest_check
+    if current_user == User.find(2)
+      redirect_to root_path, notice: "このページを見るには会員登録が必要です。"
+    end
+  end
 end
