@@ -25,7 +25,8 @@ class User < ApplicationRecord
   # 上で定義したlikesを中間テーブルにしてその中でbelongs_toしているrecipe_d
   # のデータをsourceで検索している。
 
-  validates :nickname, presence: true
+  # ニックネームは2文字以上20文字以内に設定
+  validates :nickname, presence: true, length: {minimum: 2, maximum: 20}
   validates :email, presence: true
 
   def get_profile_image(width, height)

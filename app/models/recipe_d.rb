@@ -9,9 +9,12 @@ class RecipeD < ApplicationRecord
   has_many :post_tags, dependent: :destroy
   # 中間テーブルpost_tagsを介してtagsと関連付
   has_many :tags, through: :post_tags
+  # 過去一週間の内でいいね数が多い順に表示するメソッドの定義
+  has_many :week_likes, -> { where(created_at: ((Time.current.at_end_of_day - 6.day).at_beginning_of_day)..(Time.current.at_end_of_day)) }, class_name: 'Like'
 
   validates :title, presence: true
-  validates :explanation, presence: true
+  # 料理説明は100文字以内に設定
+  validates :explanation, presence: true, length: {maximum: 100}
   validates :time, presence: true
   validates :people, presence: true
 

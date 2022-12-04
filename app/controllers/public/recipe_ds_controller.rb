@@ -12,6 +12,13 @@ class Public::RecipeDsController < ApplicationController
       @recipe_d = RecipeD.all
     end
     @recipe_ds = @recipe_d.page(params[:page]).per(8)
+    # いいね数が多い順に表示
+    # to  = Time.current.at_end_of_day
+    # from  = (to - 6.day).at_beginning_of_day
+    # @recipe_ds = @recipe_d.sort {|a,b|
+    #   b.likes.where(created_at: from...to).size <=>
+    #   a.likes.where(created_at: from...to).size
+    # }
   end
 
   def new
