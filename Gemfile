@@ -8,7 +8,7 @@ gem 'rails', '~> 6.1.6', '>= 6.1.6.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -69,3 +69,12 @@ gem 'rails-i18n'
 # フォームの追加・削除機能用
 gem 'cocoon'
 gem "jquery-rails"
+# 環境変数用
+gem 'dotenv-rails'
+# 本番環境用
+group :production do
+  gem 'mysql2'
+end
+gem "net-smtp"
+gem "net-pop"
+gem "net-imap"
