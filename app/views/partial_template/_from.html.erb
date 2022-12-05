@@ -5,7 +5,7 @@
       <%= f.file_field :image,  accept: 'image/*', onchange: "recipeImage(this);" %>
       <!--javascriptで選択した画像を表示 defaultでno_imageを設定-->
       <% if f.object.image.attached? %>
-        <%= image_tag f.object.image.representation(resize_to_limit: [500, 500]), class: "mx-auto d-block" %>
+        <%= image_tag f.object.image.representation(resize_to_limit: [500, 500]), class: "mx-auto d-block preview", style: "max-width:500px;" %>
       <% else %>
         <%= image_tag asset_path('no_image.jpg'), class: "preview", style: "max-width:500px;" %>
       <% end %>
@@ -124,8 +124,13 @@
   {
     var fileReader = new FileReader();
     // inputタグの兄弟要素のimgタグを指定
+
+
     var imgTag = $(obj).siblings('.preview')[0];
+
     fileReader.onload = (function() {
+          console.log(fileReader)
+console.log(imgTag)
       //document.getElementById('test').src = fileReader.result;
       imgTag.src = fileReader.result;
     });

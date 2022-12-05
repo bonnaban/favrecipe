@@ -11,14 +11,17 @@ class Public::RecipeDsController < ApplicationController
     else
       @recipe_d = RecipeD.all
     end
-    @recipe_ds = @recipe_d.page(params[:page]).per(8)
-    # いいね数が多い順に表示
+    # left_joinsでテーブルを結合、groupでrecipe_ds.idが同じ物をまとめる、orderで指定した条件で表示、今回はいいね数が多い順に表示
+    @recipe_ds = @recipe_d.left_joins(:likes).group("recipe_ds.id").order("count(likes.recipe_d_id) desc").page(params[:page]).per(8)
+    # 過去一週間の内でいいね数が多い順に表示
     # to  = Time.current.at_end_of_day
     # from  = (to - 6.day).at_beginning_of_day
     # @recipe_ds = @recipe_d.sort {|a,b|
     #   b.likes.where(created_at: from...to).size <=>
     #   a.likes.where(created_at: from...to).size
     # }
+    # いいね数が多い順に表示
+    # @recipe_ds = @recipe_d.includes(:like_users).sort {|a,b| b.like_users.size <=> a.like_users.size}
   end
 
   def new
@@ -72,7 +75,7 @@ private
   end
   # ゲストログイン時の制限
   def guest_check
-    if current_user == User.find(2)
+    if current_user.email == 'guest@example.com'
       redirect_to root_path, notice: "このページを見るには会員登録が必要です。"
     end
   end

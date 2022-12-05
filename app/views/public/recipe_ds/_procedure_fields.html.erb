@@ -12,7 +12,7 @@
     <div class = "col-sm-1 preview_field">
       <!--javascriptで選択した画像を表示 画像が無ければno_imageを表示-->
       <% if f.object.image.attached? %>
-        <%= image_tag  f.object.image.representation(resize_to_limit: [90, 90]), class: "preview" %>
+        <%= image_tag  f.object.image.representation(resize_to_limit: [90, 90]), class: "preview", style: "max-width:90px;" %>
       <% else %>
         <%= image_tag asset_path('no_image.jpg'), class: "preview", style: "max-width:90px;" %>
       <% end %>

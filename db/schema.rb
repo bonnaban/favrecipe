@@ -60,14 +60,6 @@ ActiveRecord::Schema.define(version: 2022_11_16_152650) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "evaluations", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "recipe_d_id", null: false
-    t.float "star", default: 0.0, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "likes", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "recipe_d_id", null: false
