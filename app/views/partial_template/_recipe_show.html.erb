@@ -150,13 +150,17 @@
       <% end %>
     <% else %>
     <% end %>
-    <!--タグの表示　選択時、絞り込み表示-->
+    <!--タグの表示　選択時、絞り込み表示 adminとuserでリンク先の切り替え-->
     <div class = "col-sm-11 offset-sm-1 mt-3">
       <h3><i class="fas fa-tag"></i>タグ</h3>
     </div>
     <div class = "col-sm-10 offset-sm-1 mt-3 mb-3">
       <% recipe_d.tags.each do |tag| %>
-        <%= link_to tag.name, recipe_ds_path(tag_id: tag.id), class: 'btn btn-sm btn-primary' %>
+        <% if admin_signed_in? %>
+          <%= link_to tag.name, admin_top_path(tag_id: tag.id), class: 'btn btn-sm btn-primary' %>
+        <% elsif user_signed_in? %>
+          <%= link_to tag.name, recipe_ds_path(tag_id: tag.id), class: 'btn btn-sm btn-primary' %>
+        <% end %>
       <% end %>
     </div>
     <!--adminとレシピの投稿者のみ編集・削除ボタンを表示-->

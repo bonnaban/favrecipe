@@ -23,7 +23,7 @@
             <%= link_to "favrecipe", top_path, class: "navbar-brand" %>
           <% end %>
           <div class = "col-sm-4">
-            <!--検索フォームの記述-->
+            <!--検索フォームの記述 adminとuserでリンク先の切り替え-->
             <% if admin_signed_in? %>
               <%= form_tag admin_top_path, method: :get, class: 'boards__searchForm' do %>
                 <%= select_tag :tag_id,
