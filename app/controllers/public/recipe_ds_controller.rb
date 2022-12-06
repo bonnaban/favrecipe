@@ -1,4 +1,5 @@
 class Public::RecipeDsController < ApplicationController
+  before_action :authenticate_user!
   before_action :guest_check, {only:[:new, :edit]}
   def index
     # tag_idがparameterに送られたら,Tagに基づいたrecipeを表示。
@@ -13,15 +14,6 @@ class Public::RecipeDsController < ApplicationController
     end
     # left_joinsでテーブルを結合、groupでrecipe_ds.idが同じ物をまとめる、orderで指定した条件で表示、今回はいいね数が多い順に表示
     @recipe_ds = @recipe_d.left_joins(:likes).group("recipe_ds.id").order("count(likes.recipe_d_id) desc").page(params[:page]).per(8)
-    # 過去一週間の内でいいね数が多い順に表示
-    # to  = Time.current.at_end_of_day
-    # from  = (to - 6.day).at_beginning_of_day
-    # @recipe_ds = @recipe_d.sort {|a,b|
-    #   b.likes.where(created_at: from...to).size <=>
-    #   a.likes.where(created_at: from...to).size
-    # }
-    # いいね数が多い順に表示
-    # @recipe_ds = @recipe_d.includes(:like_users).sort {|a,b| b.like_users.size <=> a.like_users.size}
   end
 
   def new

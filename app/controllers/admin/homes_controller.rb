@@ -1,4 +1,5 @@
 class Admin::HomesController < ApplicationController
+  before_action :authenticate_admin!
   def top
     # tag_idがparameterに送られたら,Tagに基づいたrecipeを表示。
     # user_idがparameterに送られたら,Userに基づいたrecipeを表示。送られなければ全て表示
@@ -10,7 +11,8 @@ class Admin::HomesController < ApplicationController
     else
       @recipe_d = RecipeD.all
     end
-    @recipe_ds = @recipe_d.page(params[:page]).per(8)
+    # left_joinsでテーブルを結合、groupでrecipe_ds.idが同じ物をまとめる、orderで指定した条件で表示、今回はいいね数が多い順に表示
+    @recipe_ds = @recipe_d.left_joins(:likes).group("recipe_ds.id").order("count(likes.recipe_d_id) desc").page(params[:page]).per(8)
   end
 
   private
